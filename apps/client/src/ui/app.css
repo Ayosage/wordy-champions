@@ -83,7 +83,7 @@
 .keys > div { display: flex; gap: 6px; justify-content: center; }
 .key { flex: 1 1 0; max-width: 43px; height: 58px; display: grid; place-items: center; border: 0; border-radius: 4px; padding: 0; font-family: var(--tile); font-weight: 700; font-size: 20px; text-transform: uppercase; background: var(--key); color: var(--text); transition: background-color 160ms var(--ease-out), transform 100ms var(--ease-out); }
 .key:active { transform: scale(0.94); }
-.key.miss { background: var(--miss); }
+.key.miss { background: var(--key-miss); color: var(--on-key-miss); }
 .key.ok { background: var(--ok); color: var(--on-ok); }
 .key.near { background: var(--near); color: var(--on-near); }
 .key.wide { flex: 1.5 1 0; max-width: 65px; font-size: 12px; letter-spacing: 0.02em; }
