@@ -26,6 +26,9 @@ describe('a Wordy match on the engine', () => {
     const seenByB = view(await b.next('snapshot'))
     expect(seenByB.round!.boards[0]!.guesses[0]!.word).toBeNull()
     expect(seenByB.round!.boards[0]!.guesses[0]!.marks).toHaveLength(5)
+    // the other seat's board is untouched by someone else's guess
+    expect(afterA.round!.boards[1]!.guesses).toHaveLength(0)
+    expect(seenByB.round!.boards[1]!.guesses).toHaveLength(0)
   })
 
   it('the round cap fails unfinished boards and, on the last round, ends the match', async () => {
