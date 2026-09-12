@@ -17,7 +17,7 @@ export function Keyboard({ states, onKey }: { states: Record<string, Mark>; onKe
           ))}
           {i === 2 && (
             <button type="button" className="key wide unused" data-key="Backspace" data-state="unused" onClick={() => onKey('Backspace')} aria-label="Backspace">
-              <svg width="18" height="14" viewBox="0 0 18 14" aria-hidden="true"><path d="M6 1h11v12H6L1 7l5-6zm3 3 6 6m0-6-6 6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round"/></svg>
+              <svg width="24" height="18" viewBox="0 0 24 18" aria-hidden="true"><path d="M8 1h15v16H8L1 9l7-8zm4 4 7 8m0-8-7 8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round"/></svg>
             </button>
           )}
         </div>
