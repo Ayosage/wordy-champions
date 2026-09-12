@@ -6,6 +6,7 @@ import { Board } from './Board'
 import { Countdown } from './Countdown'
 import { Keyboard } from './Keyboard'
 import { Opponents } from './Opponents'
+import { useSettled } from './reveal'
 import { Scoreboard } from './Scoreboard'
 
 export function Round() {
@@ -20,6 +21,9 @@ export function Round() {
   const backspace = useWordyStore((s) => s.backspace)
 
   const mine = view?.round && seat !== null ? view.round.boards[seat] : null
+  const guessCount = mine?.guesses.length ?? 0
+  // the keyboard and the done note wait for the newest row to finish flipping
+  const settled = useSettled(guessCount)
   const done = !!mine && (mine.solved || mine.failed)
   const canType = view?.phase === 'round' && !done && status === 'playing'
 
@@ -57,24 +61,30 @@ export function Round() {
   if (view.phase !== 'round' || !view.round) return <Scoreboard />
 
   const myGuesses = mine ? mine.guesses.map((g) => ({ word: g.word, marks: g.marks })) : []
-  const states = keyStates(myGuesses.filter((g): g is { word: string; marks: Mark[] } => g.word !== null))
+  const states = keyStates(myGuesses.slice(0, settled).filter((g): g is { word: string; marks: Mark[] } => g.word !== null))
   const total = seat !== null ? (view.totals[seat]?.points ?? 0) : 0
+  const revealed = settled >= guessCount
 
   return (
-    <main className="screen desktop-round">
-      <div className="strip">
+    <main className="screen round-screen">
+      <header className="topbar">
         <span className="round" data-testid="round-label">Round {view.round.index + 1} <span>/ {view.rounds}</span></span>
-        <span className="total" data-testid="my-total">You · {total}</span>
-        <Countdown until={view.round.endsAt} />
-      </div>
+        <span className="brand" aria-hidden="true">Wordy</span>
+        <span className="status">
+          <Countdown until={view.round.endsAt} />
+          <span className="total" data-testid="my-total">You · {total}</span>
+        </span>
+      </header>
       <Opponents />
-      <Board guesses={myGuesses} draft={draft} marksOnly={false} shake={shake} />
-      {status === 'reconnecting' && <div className="banner" role="status">Reconnecting to the match.</div>}
-      {done && (
-        <p className="small done-note" data-testid="done-note">
-          {mine!.solved ? `Solved in ${mine!.guesses.length}. Waiting for the others.` : 'Out of guesses. The word shows when the round ends.'}
-        </p>
-      )}
+      <div className="stage">
+        <Board guesses={myGuesses} draft={draft} marksOnly={false} shake={shake} />
+        {status === 'reconnecting' && <div className="banner" role="status">Reconnecting to the match.</div>}
+        {done && revealed && (
+          <p className="small done-note" data-testid="done-note">
+            {mine!.solved ? `Solved in ${mine!.guesses.length}. Waiting for the others.` : 'Out of guesses. The word shows when the round ends.'}
+          </p>
+        )}
+      </div>
       {toast && <div className="toast" role="status" aria-live="polite" data-testid="toast">{toast}</div>}
       <Keyboard states={states} onKey={press} />
     </main>
