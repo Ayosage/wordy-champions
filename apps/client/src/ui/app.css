@@ -25,7 +25,8 @@
 .seg-btn.selected { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .seg-btn:disabled { opacity: 0.35; cursor: default; }
 
-.code { font-family: var(--display); font-weight: 900; font-size: 72px; line-height: 1; letter-spacing: 0.18em; text-align: center; padding-left: 0.18em; }
+/* letters the player reads as game letters (the join code, the answer) share the tile face */
+.code { font-family: var(--tile); font-weight: 700; font-size: 56px; line-height: 1; letter-spacing: 0.16em; text-align: center; padding-left: 0.16em; }
 .seats { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .seat { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 14px; border: 1px solid var(--hair); border-radius: 12px; }
 .seat .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
@@ -106,7 +107,7 @@
 .opp .badge.solved { color: var(--ok); }
 
 .answer { text-align: center; }
-.answer .word { font-family: var(--display); font-weight: 900; font-size: 44px; letter-spacing: 0.14em; line-height: 1; padding-left: 0.14em; }
+.answer .word { font-family: var(--tile); font-weight: 700; font-size: 40px; letter-spacing: 0.12em; line-height: 1; padding-left: 0.12em; text-transform: uppercase; }
 .table { display: flex; flex-direction: column; gap: 6px; }
 .rowline { display: grid; grid-template-columns: 28px 1fr auto auto; gap: 14px; align-items: center; min-height: 48px; padding: 0 14px; border: 1px solid var(--hair); border-radius: 10px; font-variant-numeric: tabular-nums; }
 .rowline .place { font-family: var(--display); font-weight: 900; font-size: 20px; color: var(--accent); }
