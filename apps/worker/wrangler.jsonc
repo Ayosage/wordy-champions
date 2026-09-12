@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wordy",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": { "CLIENT_ORIGIN": "http://localhost:5173", "APP_VERSION": "dev" },
+  "durable_objects": { "bindings": [{ "name": "MATCH", "class_name": "WordyMatch" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["WordyMatch"] }],
+  "observability": { "enabled": true }
+}
