@@ -13,3 +13,4 @@ playwright-report/
 # internal docs stay local (README.md is the only published doc)
 docs/
 .playwright-mcp/
+.vercel

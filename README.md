@@ -5,6 +5,15 @@ solve it in up to six guesses; fewest guesses wins the round, fastest breaks
 the tie. Six rounds, points add up. Launch it from Discord with `/wordy`
 (Steward) or share a four-letter code from the web.
 
+## Live
+
+- Client: https://wordy-client.vercel.app
+- Worker: https://wordy.aexbrandon.workers.dev/healthz
+- Source: https://github.com/Ayosage/wordy-champions
+
+Pushes to `main` run the tests and redeploy the Worker (`.github/workflows`);
+Vercel rebuilds the client from the same push.
+
 ## Monorepo
 
 - `packages/rules`: pure TypeScript: word lists, tile marking, scoring, the
