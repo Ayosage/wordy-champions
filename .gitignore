@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.turbo/
+.claude/
+.wrangler/
+.dev.vars
+.vercel/
+.env*
+*.tsbuildinfo
+test-results/
+playwright-report/
+
+# internal docs stay local (README.md is the only published doc)
+docs/
+.playwright-mcp/
