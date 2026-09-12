@@ -40,8 +40,13 @@ jobs:
             --var APP_VERSION:${GITHUB_SHA::7} \
             --var CLIENT_ORIGIN:https://wordy-client.vercel.app
       - name: Verify
+        # the edge can serve the previous version for a short while after a deploy
         run: |
-          sleep 5
-          body=$(curl -sf https://wordy.aexbrandon.workers.dev/healthz)
-          echo "$body"
-          echo "$body" | grep -q "\"version\":\"${GITHUB_SHA::7}\""
+          for i in $(seq 1 12); do
+            body=$(curl -sf https://wordy.aexbrandon.workers.dev/healthz || true)
+            echo "$body"
+            if echo "$body" | grep -q "\"version\":\"${GITHUB_SHA::7}\""; then exit 0; fi
+            sleep 5
+          done
+          echo "healthz never reported ${GITHUB_SHA::7}"
+          exit 1
