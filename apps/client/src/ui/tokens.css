@@ -18,8 +18,11 @@
   --near: #D9A400;
   --on-near: #1A1400;
   --miss: #3A4160;
-  --key: #232B45;
-  --key-hover: #2C3554;
+  --key: #2B3455;
+  --key-hover: #38426A;
+  /* a key that has been tried and missed sinks to the ground so the live keys stand out */
+  --key-miss: #12172A;
+  --on-key-miss: #7C86A3;
   --display: 'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif;
   --body: 'Rubik', 'Helvetica Neue', Arial, sans-serif;
   /* the tile and key face: a Franklin, bold, the word-grid voice */
