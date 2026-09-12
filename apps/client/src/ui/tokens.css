@@ -1,0 +1,28 @@
+@font-face { font-family: 'Big Shoulders Display'; font-weight: 700; font-display: swap; src: url('/fonts/BigShouldersDisplay-700.woff2') format('woff2'); }
+@font-face { font-family: 'Big Shoulders Display'; font-weight: 900; font-display: swap; src: url('/fonts/BigShouldersDisplay-900.woff2') format('woff2'); }
+@font-face { font-family: 'Rubik'; font-weight: 400; font-display: swap; src: url('/fonts/Rubik-400.woff2') format('woff2'); }
+@font-face { font-family: 'Rubik'; font-weight: 500; font-display: swap; src: url('/fonts/Rubik-500.woff2') format('woff2'); }
+@font-face { font-family: 'Rubik'; font-weight: 700; font-display: swap; src: url('/fonts/Rubik-700.woff2') format('woff2'); }
+
+:root {
+  --ground: #0B1020;
+  --surface: #141A2E;
+  --hair: #2A3350;
+  --text: #F2F4FA;
+  --muted: #9AA3BF;
+  --accent: #FF6B4A;
+  --on-accent: #1A0B07;
+  --ok: #2FA95F;
+  --near: #D9A400;
+  --on-near: #1A1400;
+  --miss: #3A4160;
+  --key: #232B45;
+  --display: 'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif;
+  --body: 'Rubik', 'Helvetica Neue', Arial, sans-serif;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-move: cubic-bezier(0.77, 0, 0.175, 1);
+  --tile-font: 40px;
+  --radius: 14px;
+  color-scheme: dark;
+}
+@media (min-width: 900px) { :root { --tile-font: 52px; } }
