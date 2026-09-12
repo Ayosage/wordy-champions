@@ -1,2 +1,5 @@
 export * from './words'
 export * from './marks'
+export * from './scoring'
+export * from './match'
+export * from './solver'
