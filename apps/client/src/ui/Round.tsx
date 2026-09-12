@@ -14,6 +14,7 @@ export function Round() {
   const draft = useWordyStore((s) => s.draft)
   const shake = useWordyStore((s) => s.shake)
   const toast = useWordyStore((s) => s.toast)
+  const toastSeq = useWordyStore((s) => s.toastSeq)
   const status = useWordyStore((s) => s.status)
   const typeLetter = useWordyStore((s) => s.typeLetter)
   const backspace = useWordyStore((s) => s.backspace)
@@ -44,6 +45,13 @@ export function Round() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   })
+
+  // a refused guess is a glance, not a banner: it clears itself
+  useEffect(() => {
+    if (!toast) return
+    const id = setTimeout(() => useWordyStore.getState().setToast(null), 1400)
+    return () => clearTimeout(id)
+  }, [toast, toastSeq])
 
   if (!view) return null
   if (view.phase !== 'round' || !view.round) return <Scoreboard />
