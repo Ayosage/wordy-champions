@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+# a join link points at one short-lived room; there is nothing there to index
+Disallow: /*?join=
+
+Sitemap: https://wordy-client.vercel.app/sitemap.xml

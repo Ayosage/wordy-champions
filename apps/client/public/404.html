@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page not found | Wordy Champions</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0B1020" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <style>
+      /* standalone: the app's bundle is hashed, so this page carries its own tokens */
+      @font-face { font-family: 'Big Shoulders Display'; font-weight: 900; font-display: swap; src: url('/fonts/BigShouldersDisplay-900.woff2') format('woff2'); }
+      @font-face { font-family: 'Rubik'; font-weight: 400; font-display: swap; src: url('/fonts/Rubik-400.woff2') format('woff2'); }
+      @font-face { font-family: 'Rubik'; font-weight: 500; font-display: swap; src: url('/fonts/Rubik-500.woff2') format('woff2'); }
+      @font-face { font-family: 'Libre Franklin'; font-weight: 700; font-display: swap; src: url('/fonts/LibreFranklin-700.woff2') format('woff2'); }
+      :root {
+        --ground: #0b1020; --text: #f2f4fa; --muted: #9aa3bf; --accent: #ff6b4a; --on-accent: #1a0b07;
+        --key: #2b3455; --miss: #3a4160; --hair: #5466a0;
+        --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+        color-scheme: dark;
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body { margin: 0; background: var(--ground); color: var(--text); font-family: 'Rubik', 'Helvetica Neue', Arial, sans-serif; font-size: 15px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
+      ::selection { background: var(--accent); color: var(--on-accent); }
+      :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      main { max-width: 440px; margin: 0 auto; min-height: 100dvh; padding: 24px 16px 28px; display: flex; flex-direction: column; justify-content: center; gap: 22px; }
+      h1 { font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif; font-weight: 900; font-size: 44px; line-height: 1; letter-spacing: -0.01em; margin: 0; }
+      h1 em { font-style: normal; color: var(--accent); }
+      p { font-size: 13px; line-height: 1.55; color: var(--muted); margin: 0; }
+      .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; max-width: 350px; }
+      .tile { position: relative; aspect-ratio: 1; display: grid; place-items: center; border: 2px solid var(--hair); border-radius: 8px; font-family: 'Libre Franklin', Arial, sans-serif; font-weight: 700; font-size: 30px; text-transform: uppercase; }
+      .tile.miss { background: var(--miss); border-color: var(--miss); }
+      .btn { display: grid; place-items: center; border: 0; border-radius: 14px; min-height: 52px; padding: 0 20px; font: inherit; font-weight: 500; font-size: 16px; background: var(--accent); color: var(--on-accent); text-decoration: none; transition: transform 120ms var(--ease-out), background-color 160ms var(--ease-out); }
+      .btn:active { transform: scale(0.97); }
+      @media (hover: hover) and (pointer: fine) { .btn:hover { background: #ff7d60; } }
+      @media (prefers-reduced-motion: reduce) { .btn { transition: background-color 160ms var(--ease-out); } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Wordy<br /><em>Champions</em></h1>
+      <div class="row" aria-hidden="true">
+        <div class="tile miss">W</div>
+        <div class="tile miss">R</div>
+        <div class="tile miss">O</div>
+        <div class="tile miss">N</div>
+        <div class="tile miss">G</div>
+      </div>
+      <p>There is no page at that address. The game lives at the front door, and a match link looks like <code>/?join=ABCD</code>.</p>
+      <a class="btn" href="/">Go to the lobby</a>
+    </main>
+  </body>
+</html>
