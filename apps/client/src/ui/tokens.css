@@ -8,7 +8,8 @@
 :root {
   --ground: #0B1020;
   --surface: #141A2E;
-  --hair: #2A3350;
+  /* every hairline is a component boundary here (an empty tile is nothing but its edge), so it clears WCAG 1.4.11's 3:1 against both grounds */
+  --hair: #5466A0;
   --text: #F2F4FA;
   --muted: #9AA3BF;
   --accent: #FF6B4A;

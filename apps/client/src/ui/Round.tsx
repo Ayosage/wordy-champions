@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { keyStates, type Mark } from '@wordy/rules'
 import { sendGuess } from '../net/wordy'
 import { useWordyStore } from '../store'
+import { announceGuess } from './announce'
 import { Board } from './Board'
 import { Countdown } from './Countdown'
 import { Keyboard } from './Keyboard'
@@ -84,6 +85,9 @@ export function Round() {
             {mine!.solved ? `Solved in ${mine!.guesses.length}. Waiting for the others.` : 'Out of guesses. The word shows when the round ends.'}
           </p>
         )}
+      </div>
+      <div className="visually-hidden" role="status" aria-live="polite" data-testid="guess-announcement">
+        {revealed ? announceGuess(myGuesses[guessCount - 1]) : ''}
       </div>
       {toast && <div className="toast" role="status" aria-live="polite" data-testid="toast">{toast}</div>}
       <Keyboard states={states} onKey={press} />
