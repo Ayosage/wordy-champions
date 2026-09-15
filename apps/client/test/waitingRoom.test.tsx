@@ -67,6 +67,13 @@ describe('WaitingRoom', () => {
     expect(html).toContain('The match starts when you press Start')
     expect(html).not.toContain('data-testid="table-summary"')
   })
+  it('a host with nobody else here sees a disabled Start that names what is missing', () => {
+    seed({ seats: 1, target: 4, bots: 0, seat: 0 })
+    const html = render(<WaitingRoom />)
+    expect(html).toContain('Waiting for one more player')
+    expect(html).toContain('disabled')
+    expect(html).not.toContain('Start with 1 player')
+  })
   it('changing the table sends configure; Start sends start', () => {
     seed({ seats: 2, target: 4, bots: 0, seat: 0 })
     const m = mount(<WaitingRoom />)

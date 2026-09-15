@@ -15,15 +15,22 @@ describe('humanTarget', () => {
   })
 })
 
-describe('startPlan (mirrors the object: the host starts whenever; bots take the empty seats)', () => {
+describe('startPlan (mirrors the object: open seats are dropped, bots only fill a room that asked for them)', () => {
   it('is hidden for everyone but the host, and until the table is known', () => {
     expect(startPlan({ isHost: false, seated: 3, targetPlayers: 4, botCount: 0 })).toEqual({ kind: 'hidden' })
     expect(startPlan({ isHost: true, seated: 1, targetPlayers: null, botCount: 0 })).toEqual({ kind: 'hidden' })
   })
-  it('tells the host how many empty seats bots would take right now', () => {
-    expect(startPlan({ isHost: true, seated: 2, targetPlayers: 4, botCount: 0 })).toEqual({ kind: 'ready', fill: 2 })
+  it('makes the host alone at the table wait for a real second player', () => {
+    expect(startPlan({ isHost: true, seated: 1, targetPlayers: 4, botCount: 0 })).toEqual({ kind: 'wait', need: 1 })
+    expect(startPlan({ isHost: true, seated: 0, targetPlayers: 2, botCount: 0 })).toEqual({ kind: 'wait', need: 2 })
+  })
+  it('lets the host start once someone else is here; the empty seats are dropped, not filled', () => {
+    expect(startPlan({ isHost: true, seated: 2, targetPlayers: 4, botCount: 0 })).toEqual({ kind: 'ready', fill: 0 })
+    expect(startPlan({ isHost: true, seated: 5, targetPlayers: 8, botCount: 0 })).toEqual({ kind: 'ready', fill: 0 })
+  })
+  it('a room created with test bots keeps the old fill-the-table behaviour', () => {
     expect(startPlan({ isHost: true, seated: 1, targetPlayers: 4, botCount: 2 })).toEqual({ kind: 'ready', fill: 3 })
-    expect(startPlan({ isHost: true, seated: 5, targetPlayers: 8, botCount: 0 })).toEqual({ kind: 'ready', fill: 3 })
+    expect(startPlan({ isHost: true, seated: 2, targetPlayers: 4, botCount: 1 })).toEqual({ kind: 'ready', fill: 2 })
   })
 })
 

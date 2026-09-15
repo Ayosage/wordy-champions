@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { configureLobby, leaveMatch, startMatch } from '../net/wordy'
 import { useWordyStore } from '../store'
 import { BOT_COUNTS, PLAYER_COUNTS, Segmented } from './Segmented'
@@ -25,7 +25,16 @@ export function WaitingRoom() {
   const targetPlayers = useWordyStore((s) => s.targetPlayers)
   const botCount = useWordyStore((s) => s.botCount)
   const seatNames = useWordyStore((s) => s.seatNames)
+  const toast = useWordyStore((s) => s.toast)
+  const toastSeq = useWordyStore((s) => s.toastSeq)
   const [copied, copy] = useCopy()
+
+  // the object's own refusals (a seat emptied between render and Start) are a glance, not a banner
+  useEffect(() => {
+    if (!toast) return
+    const id = setTimeout(() => useWordyStore.getState().setToast(null), 2500)
+    return () => clearTimeout(id)
+  }, [toast, toastSeq])
 
   const code = roomId ?? ''
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
@@ -86,10 +95,16 @@ export function WaitingRoom() {
               Start with {seated} {seated === 1 ? 'player' : 'players'}
             </button>
           )}
+          {start.kind === 'wait' && (
+            <button type="button" className="btn primary" data-testid="start-now" disabled>
+              {start.need === 1 ? 'Waiting for one more player' : `Waiting for ${start.need} more players`}
+            </button>
+          )}
         </>
       ) : (
         <p className="small" data-testid="table-summary" style={{ textAlign: 'center' }}>Table: {tableSummary(table, botCount)}. The host can change it before the match starts.</p>
       )}
+      {toast && <p className="small" role="alert" data-testid="wr-error" style={{ textAlign: 'center' }}>{toast}</p>}
       <button type="button" className="btn link" data-testid="leave-match" onClick={leaveMatch}>Leave match</button>
     </main>
   )

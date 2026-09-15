@@ -33,5 +33,11 @@ Requirements: Node 22+, pnpm 10.
     pnpm --filter client dev     # http://localhost:5173
 
 `TEST_KNOBS=1` in `.dev.vars` enables `?rounds=`, `?seed=` and bots on the
-Create screen so one person can play a whole match locally. Bots never exist
-in production.
+Create screen (`?bots=`) so one person can play a whole match locally. Bots
+never exist in production: a room records at creation whether it asked for
+them, the create route only allows that under the knob, and every other room
+starts with the people present. A host on their own is refused.
+
+`POST /matches/open` and `GET /matches/:code` are rate limited per IP, the
+create body is capped, and a room that has not started within half an hour is
+dropped. See `apps/worker/src/guards.ts`.
