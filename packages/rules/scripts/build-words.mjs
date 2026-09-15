@@ -33,8 +33,8 @@ export const ANSWERS: readonly string[] = ${JSON.stringify(answers)}
 
 const GUESS_WORDS: readonly string[] = ${JSON.stringify([...guesses].sort())}
 
-/** Every word a player may submit. */
-export const GUESSES: ReadonlySet<string> = new Set(GUESS_WORDS)
+/** Every word a player may submit. The annotation lets a bundler drop the list from a client that never checks a word. */
+export const GUESSES: ReadonlySet<string> = /*#__PURE__*/ new Set(GUESS_WORDS)
 
 export function isWord(word: string): boolean {
   return GUESSES.has(word.toLowerCase())
