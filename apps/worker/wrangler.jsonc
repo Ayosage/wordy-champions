@@ -6,17 +6,14 @@
   "compatibility_flags": ["nodejs_compat"],
   "vars": { "CLIENT_ORIGIN": "http://localhost:5173", "APP_VERSION": "dev" },
   "durable_objects": { "bindings": [{ "name": "MATCH", "class_name": "WordyMatch" }] },
-  // v2 + v3 reset the namespace. Before match-core v0.1.4 the object built its
-  // schema in the constructor, so every probe of an unused code, and every room
-  // that expired, left an object holding five empty tables that nothing
-  // collects. v2 drops the class and every object with it; v3 brings the class
-  // straight back, empty. Tags are applied in order in one deploy, and a tag is
-  // only ever applied once, so these stay here as history.
-  "migrations": [
-    { "tag": "v1", "new_sqlite_classes": ["WordyMatch"] },
-    { "tag": "v2", "deleted_classes": ["WordyMatch"] },
-    { "tag": "v3", "new_sqlite_classes": ["WordyMatch"] }
-  ],
+  // Do not add a `deleted_classes` tag here while the MATCH binding exists.
+  // Cloudflare validates the whole deploy before applying anything and rejects
+  // it: "Cannot apply --delete-class migration to class 'WordyMatch' without
+  // also removing the binding that references it" (code 10061). A later tag
+  // recreating the class in the same deploy does not satisfy it. Clearing the
+  // namespace needs two deploys, the first with the binding and the export
+  // taken out, which means the game is down in between.
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["WordyMatch"] }],
   // Per-IP abuse guards (src/guards.ts). Creating a room costs a Durable
   // Object, so it is the tight one; the lookup limit is what keeps the
   // four-letter code space from being walked.
